@@ -21,9 +21,9 @@ export default function useFetch(search) {
       const response = await fetch(baseUrl + search);
       const json = await response.json();
       const gifs = json.data.map((val) => ({
-        id: gif.id,
-        title: gif.title,
-        url: gif.images.original.url,
+        id: val.id,
+        title: val.title,
+        url: val.images.original.url,
       }));
       setData(gifs);
     } catch (err) {
