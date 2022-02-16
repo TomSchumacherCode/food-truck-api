@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import GifDisplay from "./GifDisplay";
 
 function SearchPage({ activeUser, favorites, addFavorite, removeFavorite }) {
-  const [query, setQuery] = useState("");
+  const searchInput = useRef(null);
   const [search, setSearch] = useState("");
   const { data, error, loading } = useFetch(search);
+  const faveIds = useMemo(() => favorites.map((val) => val.id), [favorites]);
 
   return (
     <div>
       <h2 className="text-center">Welcome: {activeUser}</h2>
       <div className="flex gif-form">
-        <input
-          id="query"
-          placeholder="Search for a gif"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button className="search-btn" onClick={() => setSearch(query)}>
+        <input id="query" placeholder="Search for a gif" ref={searchInput} />
+        <button
+          className="search-btn"
+          onClick={() => {
+            setSearch(searchInput.current.value);
+          }}
+        >
           Search
         </button>
       </div>
@@ -31,6 +32,7 @@ function SearchPage({ activeUser, favorites, addFavorite, removeFavorite }) {
               gif={val}
               addFavorite={addFavorite}
               removeFavorite={removeFavorite}
+              isFavorite={faveIds.includes(val.id)}
             />
           ))}
         </div>

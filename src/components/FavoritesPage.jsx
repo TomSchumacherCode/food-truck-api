@@ -6,7 +6,12 @@ function FavoritesPage({ favorites, removeFavorite }) {
     <div>
       <div className="flex">
         {favorites.map((val) => (
-          <GifDisplay key={val.id} gif={val} removeFavorite={removeFavorite} />
+          <GifDisplay
+            key={val.id}
+            gif={val}
+            removeFavorite={removeFavorite}
+            isFavorite={true}
+          />
         ))}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,20 +9,20 @@ import "./App.css";
 import LoginPage from "./components/LoginPage";
 import Menu from "./components/Menu";
 import SearchPage from "./components/SearchPage";
-import ProtectedRoute from "./components/ProtectedRoute";
+// import ProtectedRoute from "./components/ProtectedRoute";
 import FavoritesPage from "./components/FavoritesPage";
 
 function App() {
   const [activeUser, setActiveUser] = useState(null);
   const [favorites, setFavorites] = useState([]);
 
-  function addFavorite(gif) {
+  const addFavorite = useCallback((gif) => {
     setFavorites((curr) => [...curr, gif]);
-  }
+  }, []);
 
-  function removeFavorite(id) {
+  const removeFavorite = useCallback((id) => {
     setFavorites((curr) => curr.filter((val) => val.id !== id));
-  }
+  }, []);
 
   return (
     <Router>
