@@ -15,6 +15,15 @@ import FavoritesPage from "./components/FavoritesPage";
 function App() {
   const [activeUser, setActiveUser] = useState(null);
   const [favorites, setFavorites] = useState([]);
+
+  function addFavorite(gif) {
+    setFavorites((curr) => [...curr, gif]);
+  }
+
+  function removeFavorite(id) {
+    setFavorites((curr) => curr.filter((val) => val.id !== id));
+  }
+
   return (
     <Router>
       <Menu />
@@ -29,7 +38,8 @@ function App() {
             <SearchPage
               activeUser={activeUser}
               favorites={favorites}
-              setFavorites={setFavorites}
+              addFavorite={addFavorite}
+              removeFavorite={removeFavorite}
             />
           }
         />
@@ -39,7 +49,7 @@ function App() {
             <FavoritesPage
               activeUser={activeUser}
               favorites={favorites}
-              setFavorites={setFavorites}
+              removeFavorite={removeFavorite}
             />
           }
         />

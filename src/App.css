@@ -64,3 +64,12 @@
 .search-label {
   margin: 0px 5px;
 }
+
+.gif {
+  flex-basis: calc(25% - 8px);
+  margin: 4px;
+}
+
+.gif img {
+  width: 100%;
+}
