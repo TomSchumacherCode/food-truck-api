@@ -26,7 +26,7 @@ function App() {
 
   return (
     <Router>
-      <Menu />
+      <Menu activeUser={activeUser} />
       <Routes>
         <Route
           path="/login"
