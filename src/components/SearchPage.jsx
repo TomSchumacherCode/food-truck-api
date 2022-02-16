@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 
 function SearchPage({ activeUser, favorites }) {
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState("");
+  const { data, error, loading } = useFetch(search);
 
   return (
     <div>
@@ -30,17 +32,3 @@ export default SearchPage;
 //!     title: gif.title,
 //!     url: gif.images.original.url
 //! }
-
-let res = {
-  data: [
-    {
-      id: "3oeHLrjZGBgnPx5VII",
-      title: "Bbc One Bear GIF by BBC",
-      images: {
-        original: {
-          url: "https://media4.giphy.com/media/3oeHLrjZGBgnPx5VII/giphy.gif",
-        },
-      },
-    },
-  ],
-};
