@@ -11,6 +11,7 @@ import Menu from "./components/Menu";
 import SearchPage from "./components/SearchPage";
 // import ProtectedRoute from "./components/ProtectedRoute";
 import FavoritesPage from "./components/FavoritesPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [activeUser, setActiveUser] = useState(null);
@@ -30,27 +31,35 @@ function App() {
       <Routes>
         <Route
           path="/login"
-          element={<LoginPage setActiveUser={setActiveUser} />}
+          element={
+            <ProtectedRoute activeUser={activeUser} isPrivate={false}>
+              <LoginPage setActiveUser={setActiveUser} />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/search"
           element={
-            <SearchPage
-              activeUser={activeUser}
-              favorites={favorites}
-              addFavorite={addFavorite}
-              removeFavorite={removeFavorite}
-            />
+            <ProtectedRoute isPrivate={true} activeUser={activeUser}>
+              <SearchPage
+                activeUser={activeUser}
+                favorites={favorites}
+                addFavorite={addFavorite}
+                removeFavorite={removeFavorite}
+              />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/favorites"
           element={
-            <FavoritesPage
-              activeUser={activeUser}
-              favorites={favorites}
-              removeFavorite={removeFavorite}
-            />
+            <ProtectedRoute isPrivate={true} activeUser={activeUser}>
+              <FavoritesPage
+                activeUser={activeUser}
+                favorites={favorites}
+                removeFavorite={removeFavorite}
+              />
+            </ProtectedRoute>
           }
         />
         <Route path="*" element={<Navigate to="/login" />} />
