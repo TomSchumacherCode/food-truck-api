@@ -10,7 +10,7 @@ const initialState = {
   favorites: [],
 };
 
-export default function gifsReducer(state, action) {
+export default function gifsReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_FAVORITE:
       //! Keep search in tact, create a new array with the new gif added to it
