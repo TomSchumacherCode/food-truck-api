@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 function Menu({ activeUser, children }) {
@@ -39,4 +40,12 @@ function Menu({ activeUser, children }) {
   );
 }
 
-export default Menu;
+const mapStateToProps = (state) => {
+  return {
+    activeUser: state.user,
+  };
+};
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
