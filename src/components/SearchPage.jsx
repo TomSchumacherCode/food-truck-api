@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { connect } from "react-redux";
 import useFetch from "../hooks/useFetch";
 import GifDisplay from "./GifDisplay";
@@ -16,6 +16,12 @@ function SearchPage({
   const [query, setQuery] = useState("");
   const { data, error, loading } = useFetch(query);
   const faveIds = useMemo(() => favorites.map((val) => val.id), [favorites]);
+  //! If there's data from the hook (on data change), set that into redux
+  useEffect(() => {
+    if (data) {
+      setSearch(data);
+    }
+  }, [data, setSearch]);
 
   return (
     <div>
@@ -33,9 +39,9 @@ function SearchPage({
       </div>
       {loading && <div>Loading</div>}
       {error && !loading && <h2>Something went wrong</h2>}
-      {data && !loading && (
+      {!error && search && !loading && (
         <div className="flex">
-          {data.map((val) => (
+          {search.map((val) => (
             <GifDisplay
               key={val.id}
               gif={val}

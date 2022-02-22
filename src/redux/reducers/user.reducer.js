@@ -1,6 +1,8 @@
 import { SET_USER, CLEAR_USER } from "../actions";
 
-export default function userReducer(state = null, action) {
+const initialState = null;
+
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return action.username;
