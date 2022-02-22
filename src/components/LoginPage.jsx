@@ -1,7 +1,9 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setUser } from "../redux/actions";
 
-function LoginPage({ setActiveUser }) {
+function LoginPage({ setUser }) {
   const usernameInput = useRef(null);
   const passwordInput = useRef(null);
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ function LoginPage({ setActiveUser }) {
     ) {
       return;
     }
-    setActiveUser(username);
+    setUser(username);
     navigate("/search");
   }, []);
   return (
@@ -38,4 +40,12 @@ function LoginPage({ setActiveUser }) {
   );
 }
 
-export default LoginPage;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = {
+  setUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
