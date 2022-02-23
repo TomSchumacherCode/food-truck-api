@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+//! Example comment in login page for branching example
 function LoginPage({ setActiveUser }) {
   const usernameInput = useRef(null);
   const passwordInput = useRef(null);
