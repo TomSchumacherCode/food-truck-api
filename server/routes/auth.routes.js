@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const { login, signup } = require("../models/auth.models");
+const validate = require("../middleware/validate.middleware");
 
 //! /api/auth/login - POST
+router.post("/login", validate, (req, res) => {
+  const { username, password } = req.body;
+  login(res, username, password);
+});
 
-//TODO Implement the login model function
-//TODO Check if there are the following keys on the request body (with values of appropriate lengths):
-//? username, password
 //! /api/auth/signup - PUT
-//TODO Check if there are the following keys on the request body  (with values of appropriate lengths):
-//? username, password
-//TODO Implement the signup model function
+router.put("/signup", validate, (req, res) => {
+  signup(res, req.body.username, req.body.password);
+});
 
 module.exports = router;
