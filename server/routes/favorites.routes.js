@@ -1,10 +1,31 @@
-//! /api/favorites/:user_id - GET
-//TODO Implement the byUserID model function
+const express = require("express");
+const router = express.Router();
+const {
+  addFavorite,
+  removeFavorite,
+  getByUserID,
+} = require("../models/favorites.models");
 
-//! /api/favorites/add - PUT
-//TODO Check if there are the following keys on the request body (with values):
-//? user_id, gif_id, title, url
-//TODO Implement the add model function
+router.get("/api/favorites/:user_id", (req, res) => {
+  getByUserID(res, req.params.user_id);
+});
 
-//! /api/favorites/remove/:id - DELETE
-//TODO Implement the remove model function
+router.delete("/api/favorites/remove/:id", (req, res) => {
+  removeFavorite(res, req.params.id);
+});
+
+router.put("/api/favorites/add", (req, res) => {
+  const { user_id, gif_id, title, url } = req.body;
+  if (!user_id || !gif_id || !title || !url) {
+    return res.send({
+      data: null,
+      success: false,
+      error: "Invalid data provided",
+    });
+  }
+
+  const gif = { user_id, gif_id, title, url };
+  addFavorite(res, gif);
+});
+
+module.exports = router;

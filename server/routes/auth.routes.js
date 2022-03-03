@@ -1,3 +1,6 @@
+const express = require("express");
+const router = express.Router();
+
 //! /api/auth/login - POST
 
 //TODO Implement the login model function
@@ -7,3 +10,5 @@
 //TODO Check if there are the following keys on the request body  (with values of appropriate lengths):
 //? username, password
 //TODO Implement the signup model function
+
+module.exports = router;
