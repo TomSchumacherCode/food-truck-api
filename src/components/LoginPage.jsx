@@ -8,7 +8,7 @@ function LoginPage({ setUser }) {
   const passwordInput = useRef(null);
   const navigate = useNavigate();
 
-  const handleLogin = useCallback(() => {
+  const handleLogin = useCallback(async () => {
     const username = usernameInput.current.value;
     const password = passwordInput.current.value;
     if (
@@ -19,8 +19,20 @@ function LoginPage({ setUser }) {
     ) {
       return;
     }
-    setUser(username);
-    navigate("/search");
+    const res = await fetch("/api/users/login", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await res.json();
+    if (!json.success) {
+      console.log(json.error);
+    } else {
+      setUser(json.data.username);
+      navigate("/search");
+    }
   }, []);
   return (
     <div className="login-form flex flex-column">
