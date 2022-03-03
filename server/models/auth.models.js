@@ -62,6 +62,11 @@ async function signup(res, username, password) {
       username,
       hashed,
     ]);
+    return res.send({
+      data: "Successfully Signed Up!",
+      success: true,
+      error: null,
+    });
   } catch (err) {
     //! Handle errors in catch block
     return res.send({
