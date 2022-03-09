@@ -11,6 +11,8 @@
     "mysql": "^2.18.1"
   },
   "scripts": {
-    "start": "nodemon server"
+    "start": "node server",
+    "build": "react-scripts build"
+
   }
 }
