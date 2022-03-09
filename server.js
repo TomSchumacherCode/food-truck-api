@@ -6,6 +6,12 @@ const PORT = process.env.PORT || 8080;
 const authRoutes = require("./server/routes/auth.routes");
 const testRoutes = require("./server/routes/test.routes");
 
+const bcrypt = require("bcrypt");
+async function pass() {
+  let x = await bcrypt.hash("password", 10);
+  console.log(x);
+}
+pass();
 
 app.use(express.json());
 app.use(express.static(__dirname + "/build"));
