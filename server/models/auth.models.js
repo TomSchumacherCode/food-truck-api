@@ -27,7 +27,7 @@ async function login(res, username, password) {
     }
     //! Otherwise send back the "sanitized" user
     return res.send({
-      data: { id: user.id, username: user.username },
+      data: { id: user.id, username: user.username, truckName: user.truck_name },
       success: true,
       error: null,
     });
@@ -41,29 +41,31 @@ async function login(res, username, password) {
   }
 }
 
-async function signup(res, username, password) {
+async function register(res, username, password, truckName) {
   try {
-    //! Grab a user from the table with the provided username
-    const [user] = await query("SELECT * FROM users WHERE users.username = ?", [
+    //! Grab a user from the table with the provided username or truck name
+    const [user] = await query("SELECT * FROM users WHERE users.username = ? OR users.truck_name = ? ", [
       username,
+      truckName
     ]);
     if (user) {
       //! If there IS one send an error back
       return res.send({
         data: null,
         success: false,
-        error: "Username already in use",
+        error: "Username OR Truck Name already in use",
       });
     }
     //! Hash the plain text password
     const hashed = await bcrypt.hash(password, 10);
     //! Add the new user to the table
-    await query("INSERT INTO users (username, password) VALUES (?,?)", [
+    await query("INSERT INTO users (username, password, truck_name) VALUES (?,?,?)", [
       username,
       hashed,
+      truckName
     ]);
     return res.send({
-      data: "Successfully Signed Up!",
+      data: "Successfully Registered!",
       success: true,
       error: null,
     });
@@ -77,4 +79,4 @@ async function signup(res, username, password) {
   }
 }
 
-module.exports = { login, signup };
+module.exports = { login, register };

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { login, signup } = require("../models/auth.models");
+const { login, register } = require("../models/auth.models");
 const validate = require("../middleware/validate.middleware");
 
 //! /api/auth/login - POST
@@ -9,9 +9,9 @@ router.post("/login", validate, (req, res) => {
   login(res, username, password);
 });
 
-//! /api/auth/signup - PUT
-router.put("/signup", validate, (req, res) => {
-  signup(res, req.body.username, req.body.password);
+//! /api/auth/register - PUT
+router.put("/register", validate, (req, res) => {
+  register(res, req.body.username, req.body.password, req.body.truckName);
 });
 
 module.exports = router;
