@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 8080;
-const authRoutes = require("./server/routes/auth.routes");
+const userRoutes = require("./server/routes/users.routes");
 const testRoutes = require("./server/routes/test.routes");
 const eventsRoutes = require("./server/routes/events.routes")
 
@@ -18,7 +18,7 @@ app.use(express.static(__dirname + "/build"));
 app.use(cors({origin:true}));
 
 app.use("/api/events", eventsRoutes);
-app.use("/api/users", authRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/testing", testRoutes);
 
 app.get("*", (req, res) => {
