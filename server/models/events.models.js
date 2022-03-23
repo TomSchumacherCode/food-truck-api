@@ -48,5 +48,33 @@ async function allEvents(res) {
     }
   }
 
+  async function createEvent(res, lat, lng, userId) {
+    //!creating event record
+    try {
+      
+      const result = await query(
+        "INSERT INTO events (lat, lng, user_id) VALUES (?,?,?)",
+        [lat, lng, userId]
+      ); 
+      console.log("result", result)
+  
+  
+      //! Send back the created event
+      return res.send({
+        data: result,
+        success: true,
+        error: null,
+      });
+  
+    } catch (err) {
+      //! Handle errors in catch block
+      return res.send({
+        data: null,
+        success: false,
+        error: "Something went wrong, please try again later.",
+      });
+    }
+  }
 
-module.exports = { eventsByUserId, allEvents }
+
+module.exports = { eventsByUserId, allEvents, createEvent }

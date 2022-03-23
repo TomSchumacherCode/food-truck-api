@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { eventsByUserId, allEvents } = require("../models/events.models");
+const { eventsByUserId, allEvents, createEvent } = require("../models/events.models");
 const validate = require("../middleware/validate.middleware");
+
 
 //! /api/events/:userId - GET
 router.get("/:userId", (req, res) => {
@@ -13,5 +14,10 @@ router.get("/:userId", (req, res) => {
 router.get("/", (req, res) => {
     allEvents(res)
 });
+
+router.post("/", (req, res) => {
+  createEvent(res, req.body.lat, req.body.lng, req.body.userId);
+});
+
 
 module.exports = router;
